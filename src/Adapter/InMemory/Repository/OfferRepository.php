@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Adapter\inMemory\Repository;
+namespace App\Adapter\InMemory\Repository;
 
 use App\Entity\Offer;
 class OfferRepository implements \App\Gateway\OfferGateway

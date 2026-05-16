@@ -1,6 +1,6 @@
 <?php
 namespace App\Tests\Unit;
-use App\Adapter\inMemory\Repository\OfferRepository;
+use App\Adapter\InMemory\Repository\OfferRepository;
 use App\Entity\Offer;
 use App\Gateway\OfferGateway;
 use App\UseCase\PublishOffer;
