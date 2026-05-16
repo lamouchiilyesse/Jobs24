@@ -10,12 +10,15 @@ jobs:
   symfony-tests:
     runs-on: ubuntu-latest
 
+    # Define variables here once so they apply to all steps automatically
+    env:
+      APP_ENV: test
+      DATABASE_URL: "sqlite:///%kernel.project_dir%/var/data.db"
+
     steps:
-      # 1. Checkout your code from GitHub into the runner machine
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Set up the PHP environment in the cloud
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -23,11 +26,9 @@ jobs:
           extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite
           coverage: none
 
-      # 3. Check if composer.json is valid
       - name: Validate Composer configuration
         run: composer validate --strict
 
-      # 4. Cache dependencies so your tests run faster next time
       - name: Cache Composer packages
         uses: actions/cache@v4
         with:
@@ -36,25 +37,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-
 
-      # 5. Install your backend dependencies
       - name: Install Dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
 
-      # 5.5. Prepare Cache and Data Directories and create the database schema right before running the tests.
       - name: Prepare Cache and Data Directories
         run: mkdir -p var/cache var/log var/data
 
+      # Safely updates or generates the schema file directly
       - name: Create Test Database Schema
-        env:
-          APP_ENV: test
-          DATABASE_URL: "sqlite:///%kernel.project_dir%/var/data.db"
-        run: |
-            bin/console doctrine:database:create --env=test --if-not-exists
-            bin/console doctrine:schema:update --env=test --force
-      # 6. Run your tests (PHPUnit)
+        run: php bin/console doctrine:schema:update --env=test --force
+
+      # Executed using 'php' to bypass any Windows/Linux binary execution restrictions
       - name: Execute Tests
-        env:
-          APP_ENV: test
-          # We use an in-memory SQLite database for lightning-fast CI testing
-          DATABASE_URL: "sqlite:///%kernel.project_dir%/var/data.db"
-        run: vendor/bin/phpunit
+        run: php vendor/bin/phpunit
