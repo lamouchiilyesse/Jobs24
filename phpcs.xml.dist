@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ruleset name="Jobs24 Project Coding Standard">
+    <description>
+        Coding standard for Jobs24 project — based on PSR-12, with vendor excluded.
+    </description>
+
+    <!-- Directories to scan -->
+    <file>src</file>
+    <file>tests</file>
+
+    <!-- Base standard -->
+    <rule ref="PSR12"/>
+
+    <!-- Exclude vendor and other non-source directories -->
+    <exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>var/*</exclude-pattern>
+    <exclude-pattern>public/*</exclude-pattern>
+
+    <!-- Optional: show progress and report summary -->
+    <arg value="p"/>
+    <arg name="report" value="full"/>
+</ruleset>

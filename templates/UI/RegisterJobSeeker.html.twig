@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register as Job Seeker{% endblock %}
+
+{% block body %}
+    <h1>Register as Job Seeker</h1>
+    {% for label, messages in app.flashes() %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {{ form_start(job_seeker_form) }}
+        {{ form_row(job_seeker_form.firstName) }}
+        {{ form_row(job_seeker_form.lastName) }}
+        {{ form_row(job_seeker_form.email) }}
+        {{ form_row(job_seeker_form.plainPassword) }}
+        <button type="submit" class="btn btn-primary">Register</button>
+    {{ form_end(job_seeker_form) }}
+{% endblock %}

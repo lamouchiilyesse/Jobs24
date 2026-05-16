@@ -1,0 +1,49 @@
+name: Jobs24 Continuous Integration
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  symfony-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout your code from GitHub into the runner machine
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Set up the PHP environment in the cloud
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite
+          coverage: none
+
+      # 3. Check if composer.json is valid
+      - name: Validate Composer configuration
+        run: composer validate --strict
+
+      # 4. Cache dependencies so your tests run faster next time
+      - name: Cache Composer packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache/files
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      # 5. Install your backend dependencies
+      - name: Install Dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      # 6. Run your tests (PHPUnit)
+      - name: Execute Tests
+        env:
+          APP_ENV: test
+          # We use an in-memory SQLite database for lightning-fast CI testing
+          DATABASE_URL: "sqlite:///%kernel.project_dir%/var/data.db"
+        run: vendor/bin/phpunit

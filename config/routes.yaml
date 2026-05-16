@@ -1,3 +1,36 @@
-controllers:
-    resource: ../src/Controller/
-    type: attribute
+register_job_seeker:
+    path: /Register/Job-seeker
+    controller: App\Controller\RegisterJobSeekerController::__invoke
+    methods: [GET, POST]
+#login:
+
+#job_seeker_success:
+#    path: /register/job-seeker/success
+#    controller: App\Controller\RegisterJobSeekerController::success
+register_recruiter:
+     path: /Register/Recruiter
+     controller: App\Controller\RegisterRecruiterController
+     methods: [GET, POST]
+#
+index:
+    path: /
+    controller: App\Controller\HomeController::index
+    defaults:
+       template: UI/index.html.twig
+
+publish_offer:
+  path: /publish-offer
+  controller: App\Controller\PublishOfferController::__invoke
+  methods: [GET, POST]
+
+app_offer_index:
+  path: /my-offers
+  controller: App\Controller\Offer\OfferListController::__invoke
+  methods: [GET]
+app_login:
+  path: /login
+  controller: App\Controller\SecurityController::login
+  methods: [GET, POST]
+security:
+  access_control:
+    - { path: ^/publish-offer, roles: ROLE_RECRUITER }

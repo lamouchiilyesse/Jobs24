@@ -1,0 +1,9 @@
+when@dev:
+    web_profiler:
+        toolbar: true
+
+    framework:
+        profiler:
+            enabled: true
+
+
