@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Publish a New Job Offer - Jobs24{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="mb-0 h4">Post a New Job Opening</h2>
+                    </div>
+                    <div class="card-body">
+
+                        {# 1. Display Flash Messages (Errors from the Controller) #}
+                        {% for label, messages in app.flashes %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ label == 'error' ? 'danger' : label }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+
+                        {# 2. The Form #}
+                        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+                        <div class="mb-3">
+                            {{ form_label(form.title, 'Job Title', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            {{ form_widget(form.title, {'attr': {'class': 'form-control', 'placeholder': 'e.g. Senior Symfony Developer'}}) }}
+                            {{ form_errors(form.title) }}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form_label(form.minSalary, 'Minimum Salary (€)', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                {{ form_widget(form.minSalary, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.minSalary) }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form_label(form.maxSalary, 'Maximum Salary (€)', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                                {{ form_widget(form.maxSalary, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.maxSalary) }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            {{ form_widget(form.remote, {'attr': {'class': 'form-check-input'}}) }}
+                            {{ form_label(form.remote, 'This is a remote position', {'label_attr': {'class': 'form-check-label'}}) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.companyDescription, 'About the Company', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            {{ form_widget(form.companyDescription, {'attr': {'class': 'form-control', 'rows': 4}}) }}
+                            {{ form_errors(form.companyDescription) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(form.jobDescription, 'Job Responsibilities', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            {{ form_widget(form.jobDescription, {'attr': {'class': 'form-control', 'rows': 6}}) }}
+                            {{ form_errors(form.jobDescription) }}
+                        </div>
+
+                        <hr>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg">Publish Offer</button>
+                            <a href="{{ path('app_offer_index') }}" class="btn btn-light">Cancel and Go Back</a>
+                        </div>
+
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

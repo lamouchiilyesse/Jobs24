@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register as a Recruiter{% endblock %}
+
+{% block body %}
+    <h1>Register as Job Seeker</h1>
+
+    {{ form_start(recruiter_form) }}
+        {{ form_row(recruiter_form.firstName) }}
+        {{ form_row(recruiter_form.lastName) }}
+        {{ form_row(recruiter_form.email) }}
+        {{ form_row(recruiter_form.companyName) }}
+        {{ form_row(recruiter_form.plainPassword) }}
+        <button type="submit" class="btn btn-primary">Register</button>
+    {{ form_end(recruiter_form) }}
+{% endblock %}

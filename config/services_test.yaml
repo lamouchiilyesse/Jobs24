@@ -1,0 +1,10 @@
+# config/services_test.yaml
+services:
+  _defaults:
+    public: true
+    autowire: true
+    autoconfigure: true
+
+  App\Gateway\JobSeekerGateway: '@App\Adapter\Doctrine\Repository\JobSeekerRepository'
+  # Do the same for Recruiter if you are testing that too
+  App\Gateway\RecruiterGateway: '@App\Adapter\Doctrine\Repository\RecruiterRepository'

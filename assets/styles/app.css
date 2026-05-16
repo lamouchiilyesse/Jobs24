@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* assets/styles/app.css */
+body {
+    font-family: 'Nunito', sans-serif;
+    background: #f8fafc;
+}
+
+.nav-link { position: relative; }
+.nav-link::after {
+    content:'';
+    position:absolute;
+    bottom:-2px;
+    left:0;
+    width:0;
+    height:2px;
+    background:#22c55e;
+    border-radius:2px;
+    transition: width 0.25s ease;
+}
+.nav-link:hover::after { width:100%; }
+.nav-link.active::after { width:100%; }
+
+.card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+[style*="animation-delay"] {
+    animation-fill-mode: both;
+}
+
+/* assets/styles/app.css */
+
+#authModal {
+    /* Ensures the modal doesn't get stuck under mobile notches/address bars */
+    padding-top: env(safe-area-inset-top, 20px);
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+/* Make inputs slightly smaller on mobile to fit the screen */
+/*@media (max-width: 640px) {*/
+/*    #modalContainer h2 {*/
+/*        font-size: 1.5rem; !* Shorter title on mobile *!*/
+/*        align-content : center;*/
+/*    }*/
+/*    #modalContainer h1 {*/
+/*        font-size: 2rem; !* Shorter title on mobile *!*/
+/*    }*/
+/*    #modalContainer p {*/
+/*        font-size: 1rem; !* Shorter title on mobile *!*/
+/*    }*/
+/*    #modalContainer input {*/
+/*        padding-top: 0.5rem;*/
+/*        padding-bottom: 0.5rem;*/
+/*    }*/
+/*}*/

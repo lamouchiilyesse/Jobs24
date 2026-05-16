@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Active Job Offers</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Salary Range</th>
+            <th>Remote</th>
+            <th>Published At</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for offer in offers %}
+            <tr>
+                <td>{{ offer.title }}</td>
+                <td>{{ offer.minSalary }} - {{ offer.maxSalary }} €</td>
+                <td>{{ offer.remote ? 'Yes' : 'No' }}</td>
+                <td>{{ offer.publishedAt|date('d.m.Y') }}</td>
+                <td>
+                    <a href="#" class="btn btn-sm btn-info">View</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">No job offers found. <a href="{{ path('publish_offer') }}">Create one!</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
