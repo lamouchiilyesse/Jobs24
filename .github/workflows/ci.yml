@@ -40,6 +40,17 @@ jobs:
       - name: Install Dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
 
+      # 5.5. Prepare Cache and Data Directories and create the database schema right before running the tests.
+      - name: Prepare Cache and Data Directories
+        run: mkdir -p var/cache var/log var/data
+
+      - name: Create Test Database Schema
+        env:
+          APP_ENV: test
+          DATABASE_URL: "sqlite:///%kernel.project_dir%/var/data.db"
+        run: |
+            vendor/bin/console doctrine:database:create --env=test --if-not-exists
+            vendor/bin/console doctrine:schema:update --env=test --force
       # 6. Run your tests (PHPUnit)
       - name: Execute Tests
         env:
