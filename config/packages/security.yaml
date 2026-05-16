@@ -47,6 +47,7 @@ security:
          - { path: ^/publish-offer, roles: ROLE_RECRUITER }
          - {path: ^/my-offers, roles: ROLE_RECRUITER }
 
+
 when@test:
     security:
         password_hashers:

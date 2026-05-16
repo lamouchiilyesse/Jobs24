@@ -31,6 +31,3 @@ app_login:
   path: /login
   controller: App\Controller\SecurityController::login
   methods: [GET, POST]
-security:
-  access_control:
-    - { path: ^/publish-offer, roles: ROLE_RECRUITER }
